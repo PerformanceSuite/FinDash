@@ -20,26 +20,28 @@ exports.seed = async function (knex) {
 
   // Insert admin user
   const adminPassword = await bcrypt.hash('admin123', 10);
-  const [adminUser] = await knex('users').insert({
+  const adminUsers = await knex('users').insert({
     email: 'admin@example.com',
     password_hash: adminPassword,
     first_name: 'Admin',
     last_name: 'User',
     role: 'admin',
   }).returning('id');
+  const adminUserId = adminUsers[0].id;
 
   // Insert demo user
   const demoPassword = await bcrypt.hash('demo123', 10);
-  const [demoUser] = await knex('users').insert({
+  const demoUsers = await knex('users').insert({
     email: 'demo@example.com',
     password_hash: demoPassword,
     first_name: 'Demo',
     last_name: 'User',
     role: 'user',
   }).returning('id');
+  const demoUserId = demoUsers[0].id;
 
   // Insert demo company
-  const [demoCompany] = await knex('companies').insert({
+  const demoCompanies = await knex('companies').insert({
     name: 'Demo Company Inc.',
     tax_id: '12-3456789',
     address_line1: '123 Main St',
@@ -53,17 +55,18 @@ exports.seed = async function (knex) {
     fiscal_year_end: '12-31',
     currency: 'USD',
   }).returning('id');
+  const demoCompanyId = demoCompanies[0].id;
 
   // Link users to company
   await knex('user_companies').insert([
     {
-      user_id: adminUser,
-      company_id: demoCompany,
+      user_id: adminUserId,
+      company_id: demoCompanyId,
       role: 'owner',
     },
     {
-      user_id: demoUser,
-      company_id: demoCompany,
+      user_id: demoUserId,
+      company_id: demoCompanyId,
       role: 'member',
     },
   ]);
@@ -71,7 +74,7 @@ exports.seed = async function (knex) {
   // Insert fiscal year
   const currentYear = new Date().getFullYear();
   await knex('fiscal_years').insert({
-    company_id: demoCompany,
+    company_id: demoCompanyId,
     start_date: `${currentYear}-01-01`,
     end_date: `${currentYear}-12-31`,
     is_closed: false,
@@ -120,7 +123,7 @@ exports.seed = async function (knex) {
   // Insert accounts
   for (const account of accountTypes) {
     await knex('accounts').insert({
-      company_id: demoCompany,
+      company_id: demoCompanyId,
       account_number: account.number,
       name: account.name,
       type: account.type,
@@ -160,7 +163,7 @@ exports.seed = async function (knex) {
 
   for (const customer of customers) {
     await knex('customers').insert({
-      company_id: demoCompany,
+      company_id: demoCompanyId,
       ...customer,
     });
   }
@@ -191,7 +194,7 @@ exports.seed = async function (knex) {
 
   for (const vendor of vendors) {
     await knex('vendors').insert({
-      company_id: demoCompany,
+      company_id: demoCompanyId,
       ...vendor,
     });
   }

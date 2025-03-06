@@ -1,5 +1,6 @@
 import express from 'express';
 import authRoutes from './auth';
+import quickbooksRoutes from './quickbooks';
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.get('/health', (req, res) => {
 
 // API routes
 router.use('/auth', authRoutes);
+router.use('/quickbooks', quickbooksRoutes);
 // Add more routes here as they are created
 // router.use('/users', userRoutes);
 // router.use('/companies', companyRoutes);
