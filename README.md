@@ -1,4 +1,4 @@
-# AI-Powered Accounting Software
+# FinDash - AI-Powered Accounting Software
 
 A modern accounting software solution with AI capabilities for automated financial analysis, bookkeeping, and reporting.
 
@@ -17,7 +17,7 @@ A modern accounting software solution with AI capabilities for automated financi
 ## Project Structure
 
 ```
-accounting-software/
+FinDash/
 ├── src/                  # Source code
 │   ├── api/              # API endpoints
 │   ├── models/           # Data models
@@ -55,8 +55,8 @@ accounting-software/
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/accounting-software.git
-   cd accounting-software
+   git clone https://github.com/SplinteredSunlight/FinDash.git
+   cd FinDash
    ```
 
 2. Install dependencies:
@@ -112,6 +112,15 @@ npm start
 ## API Documentation
 
 API documentation is available at `/api/docs` when running the server.
+
+## Important URLs
+
+### Legal Documents
+- EULA: https://github.com/SplinteredSunlight/FinDash/blob/main/public/eula.html
+- Privacy Policy: https://github.com/SplinteredSunlight/FinDash/blob/main/public/privacy.html
+
+### QuickBooks Integration
+- Callback URL: https://localhost:3000/api/v1/quickbooks/callback
 
 ## License
 
