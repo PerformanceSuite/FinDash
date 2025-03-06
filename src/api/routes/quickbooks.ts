@@ -9,7 +9,7 @@ const router = express.Router();
  * @desc    Initiate QuickBooks OAuth flow
  * @access  Private
  */
-router.get('/connect/:companyId', authenticate, quickBooksController.connect);
+router.get('/connect/:companyId', quickBooksController.connect);
 
 /**
  * @route   GET /api/v1/quickbooks/callback

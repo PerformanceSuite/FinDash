@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import quickBooksService from '../services/QuickBooksService';
+import authService from '../services/AuthService';
 
 export class QuickBooksController {
   /**
@@ -7,20 +8,44 @@ export class QuickBooksController {
    */
   async connect(req: Request, res: Response): Promise<void> {
     try {
+      // Log request details for debugging
+      console.log('QuickBooks connect request:', {
+        headers: req.headers,
+        params: req.params,
+        query: req.query,
+        user: req.user ? 'User exists' : 'No user on request',
+      });
+
+      // Check for token in query parameters (from form submission)
+      const tokenFromQuery = req.query.token as string;
+      if (tokenFromQuery) {
+        console.log('Token found in query parameters, validating...');
+        const user = await authService.getUserFromToken(tokenFromQuery);
+        if (user) {
+          console.log('Token is valid, user found:', user.email);
+          req.user = user;
+        } else {
+          console.error('Invalid token from query parameters');
+        }
+      }
+
       // Validate request
       if (!req.user) {
+        console.error('Authentication required - no user object on request');
         res.status(401).json({ error: 'Authentication required' });
         return;
       }
 
       const { companyId } = req.params;
       if (!companyId) {
+        console.error('Company ID is required');
         res.status(400).json({ error: 'Company ID is required' });
         return;
       }
 
       // Generate authorization URL
       const authUrl = quickBooksService.getAuthorizationUrl(companyId, req.user.id);
+      console.log('Generated QuickBooks authorization URL:', authUrl);
       
       // Redirect to QuickBooks authorization page
       res.redirect(authUrl);

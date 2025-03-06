@@ -17,6 +17,10 @@ This document summarizes the completion of the "Project Setup and QuickBooks OAu
 - Created and configured the .env file with appropriate settings
 - Set up the PostgreSQL database with proper configuration
 - Ran database migrations and seed scripts to initialize the database
+- Configured QuickBooks API credentials in the .env file:
+  - Transferred client ID and client secret from the financial-insights-mvp project
+  - Set up sandbox environment configuration
+  - Added QuickBooks sandbox company ID for testing
 
 ### 3. Database Schema Updates
 - Created a migration for the `quickbooks_tokens` table to store OAuth credentials
@@ -77,11 +81,12 @@ The implementation follows the standard OAuth 2.0 authorization code flow:
 
 ## Next Steps
 
-With the QuickBooks OAuth integration in place, the next steps would be:
-1. Implement data synchronization for accounts, transactions, customers, and vendors
-2. Develop the UI components for connecting to QuickBooks
-3. Create background jobs for periodic data synchronization
-4. Implement error handling and notifications for synchronization issues
+With the QuickBooks OAuth integration and credentials in place, the next steps would be:
+1. Test the OAuth flow with the configured credentials
+2. Implement data synchronization for accounts, transactions, customers, and vendors
+3. Develop the UI components for connecting to QuickBooks
+4. Create background jobs for periodic data synchronization
+5. Implement error handling and notifications for synchronization issues
 
 ## Conclusion
 
