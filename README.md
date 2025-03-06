@@ -120,7 +120,10 @@ API documentation is available at `/api/docs` when running the server.
 - Privacy Policy: https://github.com/SplinteredSunlight/FinDash/blob/main/public/privacy.html
 
 ### QuickBooks Integration
-- Callback URL: https://localhost:3000/api/v1/quickbooks/callback
+- Host Domain: http://splinteredsunlight.github.io/FinDash
+- Launch URL: http://splinteredsunlight.github.io/FinDash/api/v1/quickbooks/connect/:companyId
+- Callback URL: http://splinteredsunlight.github.io/FinDash/api/v1/quickbooks/callback
+- Disconnect URL: http://splinteredsunlight.github.io/FinDash/api/v1/quickbooks/disconnect/:companyId
 
 ## License
 
