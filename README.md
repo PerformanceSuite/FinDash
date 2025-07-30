@@ -1,130 +1,103 @@
-# FinDash - AI-Powered Accounting Software
+# FinDash - Financial Insights Dashboard
 
-A modern accounting software solution with AI capabilities for automated financial analysis, bookkeeping, and reporting.
+A Dagger-based financial insights application designed for small to mid-sized accounting firms using QuickBooks.
 
-## Features
+> **Migration Note**: This project has been migrated from a Node.js/TypeScript architecture to a Python/Dagger-based solution for better containerization and workflow automation. The legacy Node.js version is preserved in the `legacy-nodejs-version` branch.
 
-- Double-entry bookkeeping system
-- Financial reporting (Income Statement, Balance Sheet, Cash Flow)
-- Invoice generation and management
-- Expense tracking and categorization
-- Bank account integration
-- Tax calculation and reporting
-- AI-powered financial analysis
-- QuickBooks Online integration
-- Multi-user access with role-based permissions
+## Architecture Overview
 
-## Project Structure
+This application uses **Python** for Dagger modules (financial data processing) and **Next.js/TypeScript** for the frontend dashboard.
 
-```
-FinDash/
-├── src/                  # Source code
-│   ├── api/              # API endpoints
-│   ├── models/           # Data models
-│   ├── services/         # Business logic
-│   ├── utils/            # Utility functions
-│   ├── controllers/      # Request handlers
-│   ├── middleware/       # Express middleware
-│   ├── config/           # Configuration
-│   └── client/           # Frontend code
-│       ├── components/   # React components
-│       ├── pages/        # Page components
-│       ├── assets/       # Static assets
-│       └── styles/       # CSS/SCSS files
-├── tests/                # Test files
-│   ├── unit/             # Unit tests
-│   ├── integration/      # Integration tests
-│   └── e2e/              # End-to-end tests
-├── docs/                 # Documentation
-├── scripts/              # Utility scripts
-├── db/                   # Database
-│   ├── migrations/       # Database migrations
-│   └── seeds/            # Seed data
-└── public/               # Static files
-```
+### Core Components
+
+1. **QuickBooks Integration** - Secure data extraction from QB API
+2. **Financial Analysis Engine** - KPI calculation and insights generation  
+3. **Dashboard Interface** - Real-time visualization and reporting
+4. **Automated Workflows** - Containerized processing pipelines
+
+## Key Features
+
+- 📊 **Real-time Financial Dashboards** - Interactive KPI visualization
+- 🔗 **QuickBooks API Integration** - Secure data synchronization
+- 📈 **Automated KPI Calculation** - 30+ financial metrics
+- 🚨 **Smart Alerts** - Cash flow and performance notifications
+- 📋 **Automated Reporting** - Client-ready financial reports
+- 🔄 **Containerized Workflows** - Consistent, scalable processing
 
 ## Getting Started
 
 ### Prerequisites
-
-- Node.js (v18 or higher)
-- PostgreSQL
-- Git
+- Python 3.11+
+- Dagger CLI
+- QuickBooks Developer Account
 
 ### Installation
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/SplinteredSunlight/FinDash.git
-   cd FinDash
-   ```
-
-2. Install dependencies:
-   ```
-   npm install
+1. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
    ```
 
-3. Set up environment variables:
-   ```
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
-
-4. Run database migrations:
-   ```
-   npm run migrate
+2. **Initialize Dagger**
+   ```bash
+   dagger develop
    ```
 
-5. Seed the database (optional):
-   ```
-   npm run seed
-   ```
+3. **Configure QuickBooks API**
+   - Create QuickBooks app at https://developer.intuit.com
+   - Get Client ID and Secret
+   - Set up sandbox company for testing
 
-6. Start the development server:
-   ```
-   npm run dev
-   ```
+### Usage
+
+Run a complete financial analysis:
+
+```bash
+dagger call run-full-analysis \
+  --client-id="your_qb_client_id" \
+  --client-secret=env:QB_CLIENT_SECRET \
+  --company-id="your_qb_company_id" \
+  --client-name="Your Client Name"
+```
+
+### Available Dagger Functions
+
+- `quickbooks_connector()` - Set up QB API container
+- `fetch_financial_data()` - Extract data from QuickBooks  
+- `calculate_kpis()` - Compute financial metrics
+- `generate_insights_report()` - Create client reports
+- `build_dashboard_data()` - Prepare data for frontend
+- `run_full_analysis()` - Complete pipeline execution
+
+## Project Structure
+
+```
+financial-insights-app-python/
+├── main.py              # Main Dagger module
+├── dagger.json          # Dagger configuration  
+├── requirements.txt     # Python dependencies
+├── backend/            # API and data processing
+├── frontend/           # Next.js dashboard
+├── shared/             # Shared utilities
+└── docs/              # Documentation
+```
 
 ## Development
 
-### Running Tests
+This project follows the MCP (Model Context Protocol) pattern for consistent development:
 
-```
-npm test                # Run all tests
-npm run test:watch      # Run tests in watch mode
-npm run test:coverage   # Run tests with coverage report
-```
+- Use `container-use log <env_id>` to view work logs
+- Use `container-use checkout <env_id>` to access environments
+- All operations run in containerized environments for consistency
 
-### Linting
+## Next Steps
 
-```
-npm run lint            # Check for linting issues
-npm run lint:fix        # Fix linting issues automatically
-```
+1. Set up the Next.js frontend dashboard
+2. Implement real QuickBooks OAuth flow
+3. Add more sophisticated financial analytics
+4. Create client-specific customizations
+5. Deploy to production environment
 
-### Building for Production
+## Contributing
 
-```
-npm run build
-npm start
-```
-
-## API Documentation
-
-API documentation is available at `/api/docs` when running the server.
-
-## Important URLs
-
-### Legal Documents
-- EULA: https://github.com/SplinteredSunlight/FinDash/blob/main/public/eula.html
-- Privacy Policy: https://github.com/SplinteredSunlight/FinDash/blob/main/public/privacy.html
-
-### QuickBooks Integration
-- Host Domain: https://github.com/SplinteredSunlight/FinDash
-- Launch URL: https://github.com/SplinteredSunlight/FinDash/blob/main/src/api/routes/quickbooks.ts#L14
-- Callback URL: https://github.com/SplinteredSunlight/FinDash/blob/main/src/api/routes/quickbooks.ts#L21
-- Disconnect URL: https://github.com/SplinteredSunlight/FinDash/blob/main/src/api/routes/quickbooks.ts#L35
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project uses Dagger for consistent, containerized development workflows. All changes should be tested through Dagger modules before deployment.
